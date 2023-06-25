@@ -1,6 +1,6 @@
 # Hello there :wave:
 
-This is a simple ecommerce application backend built using the microservices architecture.
+This is a simple ecommerce application backend built using the microservices architecture. [Here's](https://dev.to/sainig/series/23469) a series of articles I'm writing to document my journey throught the process.
 
 ## Application Design
 
