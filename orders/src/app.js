@@ -1,11 +1,16 @@
 const express = require('express');
 const axios = require('axios');
 
+const { NatsClient } = require('./nats-client');
+
 const app = express();
 app.use(express.json());
 
+const natsClient = new NatsClient();
+
 const PORT = process.env.PORT;
 const PRODUCTS_APP_HOST = process.env.PRODUCTS_APP_HOST;
+const NEW_ORDER_MESSAGING_CHANNEL = process.env.MESSAGING_CHANNEL_NAME;
 
 app.use((req, res, next) => {
   res.on('finish', function() {
@@ -40,6 +45,11 @@ app.post('/', async (req, res, next) => {
       orderedProductNames += orderedProductNames === '' ? product.name : `, ${product.name}`
     }
 
+    natsClient.sendMessage(
+      NEW_ORDER_MESSAGING_CHANNEL,
+      `Hello ${userId}, your order is confirmed. Products: ${orderedProductNames}`
+    );
+
     const newOrder = {
       productIds,
       totalAmount,
@@ -67,5 +77,6 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, async () => {
+  await natsClient.startup();
   console.log(`Server running on port ${PORT}`);
 });
