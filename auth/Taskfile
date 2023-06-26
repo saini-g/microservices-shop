@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function start {
+  set -x
+  uvicorn src.main:app --host 0.0.0.0 --port $PORT --proxy-headers
+}
+
+function help {
+  echo "$0 <task> <args>"
+  echo "Tasks:"
+  compgen -A function | cat -n
+}
+
+if [ $# -eq 0 ]; then
+  help
+else
+  "${@}"
+fi
