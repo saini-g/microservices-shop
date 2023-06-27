@@ -1,0 +1,5 @@
+version: '2'
+
+services:
+  nats-broker:
+    image: nats:2.9-alpine

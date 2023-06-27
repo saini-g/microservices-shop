@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  auth:
+    extends:
+      file: auth/docker-compose.yml
+      service: app
+    env_file: .env
+    # networks:
+    #   - shop-intranet
+    # volumes:
+    #   - shop-data:/app
+
+  notifications:
+    extends:
+      file: notifications/docker-compose.yml
+      service: app
+    env_file: .env
+
+  orders:
+    extends:
+      file: orders/docker-compose.yml
+      service: app
+    env_file: .env
+
+  products:
+    extends:
+      file: products/docker-compose.yml
+      service: app
+    env_file: .env

@@ -1,0 +1,9 @@
+version: '2'
+
+networks:
+  shop-intranet:
+    driver: default
+
+
+volumes:
+  shop-data:
